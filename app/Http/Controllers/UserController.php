@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\UserData;
+use App\Models\TypeUser;
+
 use Validator;
 
 class UserController extends Controller
@@ -41,11 +43,10 @@ class UserController extends Controller
             }
         }
      
-        $users = User::with(['UserData'])
+        $users = User::with(['UserData','TypeUser'])
             ->when($search, function ($query, $search) {
                 return $query->where(function ($q) use ($search) {
-                        $q->where("email", 'ILIKE', "%" . $search . "%")
-                        ->orWhere("identificador", "ILIKE", "%" . $search . "%");
+                        $q->where("email", 'ILIKE', "%" . $search . "%");
                 });
             })
             ->orderBy($by, $dir)
@@ -83,6 +84,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'type_users_id' => 'numeric|required ',
             'password_confirmation' => 'required ',
             'identification' => 'required|string|max:12',
             'date_of_birth' => 'required|date',
@@ -95,13 +97,14 @@ class UserController extends Controller
         }
         
         $user = User::create([
-            'identificador' => $request->get('identificador'),
+            // 'identificador' => $request->get('identificador'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
         ]);
         
         $userData = UserData::create([
             'users_id' => $user->id,
+            'type_users_id' => $request->get('type_users_id'),
             'name' => $request->get('name'),
             'phone' => $request->get('phone'),
             'identification' => $request->get('identification'),
@@ -133,7 +136,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $users = User::with(['UserData'])->find($id);
+        $users = User::with(['UserData','TypeUser'])->find($id);
         if (!$users) {
             return response()->json(['error' => 'user_does_not_exist'], 404);
         }
@@ -171,6 +174,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'type_users_id' => 'numeric|required ',
             'password_confirmation' => 'required ',
             'identification' => 'required|string|max:12',
             'date_of_birth' => 'required|date',

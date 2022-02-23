@@ -8,12 +8,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\UserData;
+use App\Models\Email;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Spatie\Permission\Traits\HasRoles;
+  
 
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -21,10 +24,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'identificador',
+        // 'identificador',
         'email',
         'password',
-        'tipo_usuario'
+        'type_users_id'
         // 'password_verified',
     ];
 
@@ -57,6 +60,7 @@ class User extends Authenticatable
     {
         return $this->getKey();
     }
+    
 
     /**
      * Return a key value array, containing any custom claims to be added to the JWT.
@@ -75,4 +79,18 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserData::class, 'users_id');
     }
+
+    public function User()
+    {
+        return $this->hasOne(UserData::class,'users_id');
+    }
+
+      /**
+     * Function to get users
+     */
+    public function TypeUser()
+    {
+        return $this->belongsTo(TypeUser::class, 'type_users_id');
+    }
+
 }

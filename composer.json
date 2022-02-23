@@ -12,8 +12,11 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
+        "laravelcollective/html": "^6.3",
         "nesbot/carbon": "^2.57",
-        "tymon/jwt-auth": "^1.0"
+        "spatie/laravel-permission": "^5.5",
+        "tymon/jwt-auth": "^1.0",
+        "wildbit/swiftmailer-postmark": "^3.3"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
