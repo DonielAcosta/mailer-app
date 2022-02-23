@@ -22,7 +22,6 @@ Route::get('users_show/{id}', [UserController::class, 'show']);
 Route::put('usersup/{id}', [UserController::class, 'update']);
 Route::delete('delete_user/{id}', [UserController::class, 'destroy']);
 
-
 Route::resource('user_data', UserDataController::class);
 
 

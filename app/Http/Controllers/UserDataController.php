@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\UserData;
+use Validator;
 
 class UserDataController extends Controller
 {
@@ -23,12 +26,12 @@ class UserDataController extends Controller
         if (request()->has('orderBy')) {
             $by = request()->get('orderBy');
         }
-        $identi = 'desc'; // identificacion of the Order by
-        if (request()->has('identiDesc')) {
-            if (request()->get('identiDesc') === 'true') {
-                $identi = 'desc';
+        $dir = 'desc'; // Direction of the Order by
+        if (request()->has('dirDesc')) {
+            if (request()->get('dirDesc') === 'true') {
+                $dir = 'desc';
             } else {
-                $identi = 'asc';
+                $dir = 'asc';
             }
         }
         $codecity = 'code_city'; // codigo de la ciudad 
@@ -45,7 +48,7 @@ class UserDataController extends Controller
                        	->orWhere("code_city", "ILIKE", "%" . $search . "%");
                 });
             })
-            ->orderBy($by, $identi)
+            ->orderBy($by, $dir)
             ->orderBy('id', 'desc')
             ->paginate($paginate);
 
@@ -59,15 +62,7 @@ class UserDataController extends Controller
         );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+  
 
     /**
      * Store a newly created resource in storage.
@@ -77,7 +72,39 @@ class UserDataController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|string|max:255',
+                'identification' => 'required|string|max:15',
+                'phone' => 'required|string|max:15',
+                'date_of_birth' => 'required|date',
+                'code_city' => 'required|string|max:255',
+                'users_id' => 'required|numeric'
+                
+            ]
+        );
+        if ($validator->fails()) {
+            return response()
+                ->json(['error' => $validator->errors()], 422);
+        }
+        $arr = [
+            'users_id' => $request->get('users_id'),
+            'name' => $request->input('name'),
+            'identification' => $request->input('identification'),
+            'phone' => $request->input('phone'),
+            'date_of_birth' => $request->input('date_of_birth'),
+            'code_city' => $request->input('code_city'),
+        ];
+        $user_data = UserData::create($arr);
+        return response()->json(
+            [
+                'created' => true,
+                'data' => $user_data,
+                'message' => 'Elemento creado exitosamente'
+            ],
+            200
+        );
     }
 
     /**
@@ -88,7 +115,18 @@ class UserDataController extends Controller
      */
     public function show($id)
     {
-        //
+        $user_data = UserData::with(['User'])->find($id);
+        if (!$user_data) {
+            return response()->json(['error' => 'user_data_does_not_exist'], 404);
+        }
+        return response()->json(
+            [
+                'showed' => True,
+                'data' => $user_data,
+                'message' => 'Elemento obtenido exitosamente'
+            ],
+            200
+        );
     }
 
     /**
@@ -111,7 +149,34 @@ class UserDataController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|string|max:255',
+                'identification' => 'required|string|max:15',
+                'phone' => 'required|string|max:15',
+                'date_of_birth' => 'required|date',
+                'code_city' => 'required|string|max:255',
+                'users_id' => 'required|numeric'
+                
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()
+                ->json(['error' => $validator->errors()], 422);
+        }
+        $user_data = UserData::findOrFail($id);
+        $user_data->fill($request->all());
+        $user_data->save();
+        return response()->json(
+            [
+                'updated' => True,
+                'data' => $user_data,
+                'message' => 'Elemento obtenido exitosamente'
+            ],
+            200
+        );
     }
 
     /**
@@ -122,6 +187,11 @@ class UserDataController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user_data = UserData::findorFail($id);
+        $user_data->delete();
+        return response()->json([
+            'deleted' => True,
+            'message' => 'Elemento eliminado exitosamente',
+        ], 200);
     }
 }
