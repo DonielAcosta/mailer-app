@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserDataController;
+use App\Http\Controllers\Auth\RegisterController;
+
 
 
 /*
@@ -23,6 +25,7 @@ Route::put('usersup/{id}', [UserController::class, 'update']);
 Route::delete('delete_user/{id}', [UserController::class, 'destroy']);
 
 Route::resource('user_data', UserDataController::class);
+Route::post('register-basico', [RegisterController::class, 'signUp']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
