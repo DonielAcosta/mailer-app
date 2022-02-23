@@ -15,12 +15,13 @@ class CreateUserDataTable extends Migration
     {
         Schema::create('user_data', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('users_id')->constrained();
             $table->string('name',100);
             $table->string('phone',10);
             $table->string('identification',11);
             $table->date('date_of_birth');
             $table->string('code_city');
+            $table->timestamps();
 
         });
     }
