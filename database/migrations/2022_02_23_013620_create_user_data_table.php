@@ -17,7 +17,7 @@ class CreateUserDataTable extends Migration
             $table->id();
             $table->foreignId('users_id')->constrained();
             $table->string('name',100);
-            $table->string('phone',10);
+            $table->string('phone',15);
             $table->string('identification',11);
             $table->date('date_of_birth');
             $table->string('code_city');

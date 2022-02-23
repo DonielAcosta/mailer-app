@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserDataController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,15 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('users', [UserController::class, 'index']);
+Route::post('register', [UserController::class, 'store']);
+Route::get('users_show/{id}', [UserController::class, 'show']);
+Route::put('usersup/{id}', [UserController::class, 'update']);
+Route::delete('delete_user/{id}', [UserController::class, 'destroy']);
+
+
+Route::resource('user_data', UserDataController::class);
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

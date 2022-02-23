@@ -20,10 +20,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'Identificador',
+        'identificador',
         'email',
         'password',
-        'password_verified',
+        // 'password_verified',
     ];
 
     /**
@@ -50,6 +50,6 @@ class User extends Authenticatable
      */
     public function UserData()
     {
-        return $this->hasOne(UserData::class);
+        return $this->hasOne(UserData::class, 'users_id');
     }
 }
