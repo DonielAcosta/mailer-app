@@ -16,16 +16,18 @@ class SendEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $details;
+    protected $Email;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct(Email $Email)
     {
-        $this->details = $details;
+        Log::info('Entered Job ProcessCountriesPopulation __constructor method');
+        $this->country_census = $country;
+         $this->details = $details;
     }
 
     /**
