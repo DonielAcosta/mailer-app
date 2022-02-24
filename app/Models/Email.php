@@ -9,6 +9,18 @@ class Email extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'users_id',
+        'email',
+        'subject',
+        'body',
+        'status'
+    ];
     function User()
     {
         return $this->belongsTo(User::class,'users_id');

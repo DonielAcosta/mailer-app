@@ -6,10 +6,21 @@ use Swift_SmtpTransport;
 use Swift_Message;
 use Swift_Mailer;
 use Mail;
+use Validator;
+use App\Models\Email;
+use App\Models\User;
+
+
+
+// use App\Http\Controllers\Mail\WelcomeEmail;
 
 class EmailController extends Controller{
 
     public function mail(){
+
+
+
+      // Mail::to("donielacosta1995@gmail.com")->send(new WelcomeEmail());
 
       $transport = (new Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl'))
       ->setUsername('anacontreras1911@gmail.com')
@@ -36,35 +47,38 @@ class EmailController extends Controller{
          200
      );
    }
+   public function create(Request $request){
 
-    public function basic_email() {
-        $data = array('name'=>"Virat Gandhi");
 
-        Mail::send(['text'=>'mail'], $data, function($message) {
-           $message->to('abc@gmail.com', 'Tutorials Point')->subject
-              ('Laravel Basic Testing Mail');
-           $message->from('xyz@gmail.com','Virat Gandhi');
-        });
-        echo "Basic Email Sent. Check your inbox.";
+      $validator = Validator::make($request->all(), [
+         'users_id' => 'numeric|required ',
+         'email' => 'required|string|email|max:255|unique:users',
+         'subject' => 'string',
+         'body' => 'string',
+         'status' => 'string',
+     ]);
+
+     if ($validator->fails()) {
+         return response()->json($validator->errors()->toJson(), 400);
      }
-     public function html_email() {
-        $data = array('name'=>"Virat Gandhi");
-        Mail::send('mail', $data, function($message) {
-           $message->to('abc@gmail.com', 'Tutorials Point')->subject
-              ('Laravel HTML Testing Mail');
-           $message->from('xyz@gmail.com','Virat Gandhi');
-        });
-        echo "HTML Email Sent. Check your inbox.";
-     }
-     public function attachment_email() {
-        $data = array('name'=>"Virat Gandhi");
-        Mail::send('mail', $data, function($message) {
-           $message->to('abc@gmail.com', 'Tutorials Point')->subject
-              ('Laravel Testing Mail with Attachment');
-           $message->attach('C:\laravel-master\laravel\public\uploads\image.png');
-           $message->attach('C:\laravel-master\laravel\public\uploads\test.txt');
-           $message->from('xyz@gmail.com','Virat Gandhi');
-        });
-        echo "Email Sent with attachment. Check your inbox.";
-     }
+
+
+     $email = Email::create([
+      'users_id' => $request->get('users_id'),
+      'email' => $request->get('email'),
+      'subject' => $request->get('subject'),
+      'body' => $request->get('body'),
+      'status' => $request->get('status'),
+
+     ]);
+     $email->save();
+     return response()->json(
+      [
+          'listed' => True,
+          'message' => 'Elemento obtenido exitosamente'
+      ],
+      200
+  );
+
+   }
 }

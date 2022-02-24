@@ -25,6 +25,7 @@ use App\Http\Controllers\EmailController;
 // Route::get('sendbasicemail', [MailController::class, 'basic_email']);
 // Route::get('hola','EmailController@hola');
 Route::get('mail', [EmailController::class, 'mail']);
+Route::post('send', [EmailController::class, 'create']);
 
 Route::get('sendbasicemail', [EmailController::class, 'basic_email']);
 
