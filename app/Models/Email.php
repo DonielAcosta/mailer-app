@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Email;
+
 
 class Email extends Model
 {
@@ -14,6 +17,8 @@ class Email extends Model
      *
      * @var array<int, string>
      */
+    protected $table="Emails";
+    protected $primaryKey = 'id';
     protected $fillable = [
         'users_id',
         'email',
@@ -21,6 +26,7 @@ class Email extends Model
         'body',
         'status'
     ];
+
     function User()
     {
         return $this->belongsTo(User::class,'users_id');
