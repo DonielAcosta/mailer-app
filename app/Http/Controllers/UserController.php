@@ -42,7 +42,7 @@ class UserController extends Controller
                 $dir = 'asc';
             }
         }
-     
+
         $users = User::with(['UserData','TypeUser'])
             ->when($search, function ($query, $search) {
                 return $query->where(function ($q) use ($search) {
@@ -95,13 +95,13 @@ class UserController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors()->toJson(), 400);
         }
-        
+
         $user = User::create([
             // 'identificador' => $request->get('identificador'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
         ]);
-        
+
         $userData = UserData::create([
             'users_id' => $user->id,
             'type_users_id' => $request->get('type_users_id'),
@@ -213,7 +213,7 @@ class UserController extends Controller
             ],
             200
         );
-        
+
     }
 
     /**

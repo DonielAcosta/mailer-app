@@ -27,13 +27,12 @@ class TypeUserController extends Controller
                 $dir = 'desc';
             } else {
                 $dir = 'asc';
-            } 
+            }
         }
         $type_user = TypeUser::with(['User'])
             ->when($search, function ($query, $search) {
                 return $query->where(function ($q) use ($search) {
-                    $q->where("type", 'LIKE', "%" . $search . "%")
-                        ->orWhere("identificador", "LIKE", "%" . $search . "%");
+                    $q->where("type", 'LIKE', "%" . $search . "%");
                 });
             })
             ->orderBy($by, $dir)
@@ -61,8 +60,7 @@ class TypeUserController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'type' => 'required|string',
-                'identificador' => 'numeric|required ',
+                'type' => 'required|string'
             ]
         );
         if ($validator->fails()) {
@@ -70,11 +68,9 @@ class TypeUserController extends Controller
                 ->json(['error' => $validator->errors()], 422);
         }
         $arr = [
-            'type' => $request->input('type'),
-            'identificador' => $request->input('identificador')
+            'type' => $request->input('type')
         ];
         $type_user = TypeUser::create($arr);
-        // $type_user = TypeUser::create($request->all());
         return response()->json(
             [
                 'created' => true,
@@ -119,8 +115,7 @@ class TypeUserController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'type' => 'required|string',
-                'identificador' => 'numeric|required ',
+                'type' => 'required|string'
             ]
         );
         if ($validator->fails()) {

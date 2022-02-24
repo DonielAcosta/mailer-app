@@ -14,15 +14,13 @@ class TypeUserSeeder extends Seeder
      */
     public function run()
     {
-      
+
         $type = new TypeUser();
         $type->type = 'admin';
-        $type->identificador = '1';
         $type->save();
 
         $type = new TypeUser();
         $type->type = 'client';
-        $type->identificador = '2';
         $type->save();
 
     }

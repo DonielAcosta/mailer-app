@@ -11,11 +11,7 @@ class TypeUser extends Model
     use HasFactory;
 
 
-    protected $fillable = [
-        'identificador',
-        'type'
-        // 'password_verified',
-    ];
+    protected $fillable = ['type'];
 
    /**
      * Function to get users
