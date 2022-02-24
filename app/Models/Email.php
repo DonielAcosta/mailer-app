@@ -12,8 +12,6 @@ class Email extends Model
     use HasFactory;
 
 
-
-
     public function User()
     {
         return $this->belongsTo(User::class,'users_id');

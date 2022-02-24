@@ -6,6 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserDataController;
 use App\Http\Controllers\TypeUserController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\MailController;
+
 
 
 
@@ -19,6 +21,9 @@ use App\Http\Controllers\Auth\RegisterController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('sendbasicemail', [MailController::class, 'basic_email']);
+
+
 Route::get('users', [UserController::class, 'index']);
 Route::post('register', [UserController::class, 'store']);
 Route::get('users_show/{id}', [UserController::class, 'show']);
