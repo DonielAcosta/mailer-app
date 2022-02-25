@@ -10,34 +10,41 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Mail\EmailForQueuing;
 use App\Models\Email;
-use Mail;
+use App\Models\User;
 
-class SendEmail implements ShouldQueue
-{
+
+class SendEmail implements ShouldQueue{
+
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $Email;
-
+     protected $user;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Email $Email)
-    {
-        Log::info('Entered Job ProcessCountriesPopulation __constructor method');
-        $this->country_census = $country;
-         $this->details = $details;
+    public function __construct(User $user){
+        
+        $this->User = $user;
     }
 
-    /**
-     * Execute the job.
+   /**
+           * Método de cola como enviar correo electrónico
      *
      * @return void
      */
-    public function handle()
-    {
-        $email = new EmailForQueuing();
-        Mail::to($this->details['email'])->send($email);
+    public function handle(){
+        Log::info('Entered Job Email handle method');
+
+        $email =  Email::where(["id" => $this->Email["id"]]);
+        
+        $email = Email::find('id'); 
+        $email->Email;
+        $email->save();
+
+        Log::info('Exited from Job  handle method');
+
+        // $email = new EmailForQueuing();
+        // Mail::to($this->details['email'])->send($email);
     }
 }

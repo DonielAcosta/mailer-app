@@ -1,26 +1,25 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Swift_SmtpTransport;
 use Swift_Message;
 use Swift_Mailer;
 use Mail;
+use App\Jobs\SendEmail;
 use Validator;
 use App\Models\Email;
 use App\Models\User;
-
 
 
 // use App\Http\Controllers\Mail\WelcomeEmail;
 
 class EmailController extends Controller{
 
-    public function mail(){
+    public function mail(Request $request){
 
-
-
-      // Mail::to("donielacosta1995@gmail.com")->send(new WelcomeEmail());
 
       $transport = (new Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl'))
       ->setUsername('anacontreras1911@gmail.com')
@@ -38,6 +37,8 @@ class EmailController extends Controller{
 
       // Send the message
       $result = $mailer->send($message);
+
+      
       
       return response()->json(
          [
@@ -81,4 +82,5 @@ class EmailController extends Controller{
   );
 
    }
+   
 }

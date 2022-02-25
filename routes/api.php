@@ -5,8 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserDataController;
 use App\Http\Controllers\TypeUserController;
-// use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\CountriesController;
+
+Auth::routes();
 
 
 
@@ -22,8 +24,11 @@ use App\Http\Controllers\EmailController;
 |
 */
 // Route::get('sendbasicemail', [MailController::class, 'basic_email']);
-// Route::get('hola','EmailController@hola');
+Route::get('hola',[CountriesController::class,'hola']);
 
+Route::get('countries', [CountriesController::class, 'index']);
+// Route::get('countries', 'CountriesController@index');
+// Route::post('login', 'App\Http\Controllers\CountriesController@index');
 
 Route::post('registerbasic', 'App\Http\Controllers\UserController@register');
 Route::post('login', 'App\Http\Controllers\UserController@authenticate');
@@ -31,7 +36,6 @@ Route::post('login', 'App\Http\Controllers\UserController@authenticate');
 Route::get('mail', [EmailController::class, 'mail']);
 Route::post('send', [EmailController::class, 'create']);
 
-Route::get('sendbasicemail', [EmailController::class, 'basic_email']);
 
 
 Route::get('users', [UserController::class, 'index']);

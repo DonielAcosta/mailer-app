@@ -32,7 +32,7 @@ class UserController extends Controller
         if (request()->has('orderBy')) {
             $by = request()->get('orderBy');
         }
-        $ident = 'identificador'; // Order query by X column
+        $dir = 'desc'; // Order query by X column
         if (request()->has('orderBy')) {
             $by = request()->get('orderBy');
         }
@@ -64,7 +64,7 @@ class UserController extends Controller
     }
 
     public function authenticate(Request $request)
-    {
+{
     $credentials = $request->only('email', 'password');
     try {
         if (! $token = JWTAuth::attempt($credentials)) {
@@ -130,6 +130,9 @@ class UserController extends Controller
             'date_of_birth' => 'required|date',
             'phone' => 'required|string|max:15',
             'code_city' => 'required|string|max:30',
+            'contry' => 'required|string|max:30',
+            'state' => 'required|string|max:30',
+
         ]);
 
         if ($validator->fails()) {
