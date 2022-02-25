@@ -36,7 +36,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"romeo\",\n    \"type_users_id\": 2,\n    \"email\": \"osuna@gmail.com\",\n    \"password\": \"doni2000\",\n    \"password_confirmation\": \"doni2000\",\n    \"first_name\": \"alberto aaa\",\n    \"lastname\": \"acosta\",\n    \"identification\": \"V25237858\",\n    \"date_of_birth\": \"1995-11-18\",\n    \"phone\": \"+584120749550\",\n    \"code_city\": \"5100\"\n}",
+							"raw": "{\n    \"name\": \"romeo\",\n    \"type_users_id\": 2,\n    \"email\": \"osuna@gmail.com\",\n    \"password\": \"doni2000\",\n    \"password_confirmation\": \"doni2000\",\n    \"identification\": \"V25237858\",\n    \"date_of_birth\": \"1995-11-18\",\n    \"phone\": \"+584120749550\",\n    \"code_city\": \"5100\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -61,7 +61,95 @@
 					"response": []
 				},
 				{
+					"name": "http://localhost:8000/api/login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \n    \"email\" : \"randommail@mail.com\",\n    \"password\" : \"strongkey123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "registro-basico auth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"randomusername\",\n    \"password\" : \"strongkey123\",\n    \"password_confirmation\" : \"strongkey123\",\n    \"email\" : \"randommail@mail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "http://localhost:8000/api/register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"randomusername\",\n    \"email\" : \"randommail111@mail.com\",\n    \"password\" : \"strongkey123\",\n    \"password_confirmation\" : \"strongkey123\",\n    \"identification\": \"V25237858\",\n    \"type_users_id\":\"1\",\n    \"date_of_birth\": \"1995-11-18\",\n    \"phone\": \"+584120749550\",\n     \"code_city\": \"5101\"\n    \n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"register"
+							]
+						},
+						"description": "registro completo\n"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/api/register-basico",
 					"request": {
 						"method": "POST",
 						"header": [],
