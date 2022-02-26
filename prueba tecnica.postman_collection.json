@@ -36,7 +36,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"romeo\",\n    \"type_users_id\": 2,\n    \"email\": \"osuna@gmail.com\",\n    \"password\": \"doni2000\",\n    \"password_confirmation\": \"doni2000\",\n    \"identification\": \"V25237858\",\n    \"date_of_birth\": \"1995-11-18\",\n    \"phone\": \"+584120749550\",\n    \"code_city\": \"5100\"\n}",
+							"raw": "{\n    \"name\": \"romeoaaaa\",\n    \"type_users_id\": 2,\n    \"email\": \"osuna@gmail.com\",\n    \"password\": \"doni2000\",\n    \"password_confirmation\": \"doni2000\",\n    \"identification\": \"V25237858\",\n    \"date_of_birth\": \"1995-11-18\",\n    \"phone\": \"+584120749550\",\n    \"code_city\": \"5100\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -68,35 +68,6 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n   \n    \"email\" : \"randommail@mail.com\",\n    \"password\" : \"strongkey123\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8000/api/login",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"api",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "registro-basico auth",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\" : \"randomusername\",\n    \"password\" : \"strongkey123\",\n    \"password_confirmation\" : \"strongkey123\",\n    \"email\" : \"randommail@mail.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -155,7 +126,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"doniel acosta\",\n    \"identificador\": 1,\n    \"email\": \"donielacosta123@gmail.com\",\n    \"password\": \"doni1995\",\n    \"password_confirmation\": \"doni1995\",\n    \"identification\": \"V25237858\",\n    \"date_of_birth\": \"1995-11-18\",\n    \"phone\": \"+584120749550\",\n     \"code_city\": \"5101\"\n    \n}\n",
+							"raw": "{\n    \"name\": \"doniel acosta\",\n    \"email\": \"donielacosta12s3@gmail.com\",\n    \"password\": \"doni1995\",\n    \"password_confirmation\": \"doni1995\",\n    \"type_users_id\": 1,\n    \"identification\": \"V25237858\",\n    \"date_of_birth\": \"1995-11-18\",\n    \"phone\": \"+584120749550\",\n     \"code_city\": \"5101\"\n    \n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -163,7 +134,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8000/api/register",
+							"raw": "http://localhost:8000/api/registercomplet",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -171,7 +142,7 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"register"
+								"registercomplet"
 							]
 						},
 						"description": "registro completo\n"
@@ -212,7 +183,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/delete_user/3",
+							"raw": "http://localhost:8000/api/delete_user/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -221,7 +192,7 @@
 							"path": [
 								"api",
 								"delete_user",
-								"3"
+								"1"
 							]
 						}
 					},
@@ -546,6 +517,119 @@
 							"path": [
 								"api",
 								"send"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "country",
+			"item": [
+				{
+					"name": "http://127.0.0.1:8000/api/pais",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/pais",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"pais"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "paginate",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "45",
+									"disabled": true
+								},
+								{
+									"key": "parent",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "country",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://127.0.0.1:8000/api/countries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/countries?parent=1029",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"countries"
+							],
+							"query": [
+								{
+									"key": "parent",
+									"value": "1029"
+								},
+								{
+									"key": "search",
+									"value": "bogota",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://127.0.0.1:8000/api/filter-parent",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/countries/7029",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"countries",
+								"7029"
 							]
 						}
 					},
