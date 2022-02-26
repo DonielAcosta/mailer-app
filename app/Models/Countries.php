@@ -14,12 +14,7 @@ class Countries extends Model
     protected $fillable = [
         'name',
         'countries_id',
-    
     ];
-
-
-
-   
 
     public function Countries()
     {
@@ -27,6 +22,6 @@ class Countries extends Model
     }
     public function childrenContries()
     {
-    return $this->hasMany(Countries::class)->with('Countries');
+        return $this->hasMany(Countries::class)->with('Countries');
     }
 }
