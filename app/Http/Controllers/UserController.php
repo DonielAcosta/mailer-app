@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\UserData;
 use App\Models\TypeUser;
 use App\AuthController;
 use JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use Validator;
 
 class UserController extends Controller
@@ -48,7 +48,7 @@ class UserController extends Controller
         $users = User::with(['UserData','TypeUser'])
             ->when($search, function ($query, $search) {
                 return $query->where(function ($q) use ($search) {
-                        $q->where("email", 'ILIKE', "%" . $search . "%");
+                        $q->where("email", 'LIKE', "%" . $search . "%");
                 });
             })
             ->orderBy($by, $dir)
@@ -130,8 +130,7 @@ class UserController extends Controller
             'date_of_birth' => 'required|date',
             'phone' => 'required|string|max:15',
             'code_city' => 'required|string|max:30',
-            'contry' => 'required|string|max:30',
-            'state' => 'required|string|max:30',
+            
 
         ]);
 
@@ -265,8 +264,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
+
         $user = User::findorFail($id);
         $user->delete();
         return response()->json([

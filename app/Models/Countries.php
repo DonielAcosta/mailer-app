@@ -16,12 +16,13 @@ class Countries extends Model
         'countries_id',
     ];
 
-    public function Countries()
+    public function country()
     {
-        return $this->hasMany(Countries::class,'countries_id');
+        return $this->belongsTo('App\Models\Countries','countries_id');
+
     }
-    public function childrenContries()
-    {
-        return $this->hasMany(Countries::class)->with('Countries');
-    }
+
+    // public function parent(){
+    //     return $this->belongsTo('App\Service','service_root_id');
+    //   }
 }

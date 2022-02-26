@@ -27,10 +27,13 @@ Auth::routes();
 Route::get('hola',[CountriesController::class,'hola']);
 
 Route::get('countries', [CountriesController::class, 'index']);
-// Route::get('countries', 'CountriesController@index');
-// Route::post('login', 'App\Http\Controllers\CountriesController@index');
+Route::get('countries/{id}', [CountriesController::class, 'filter']);
 
-Route::post('registerbasic', 'App\Http\Controllers\UserController@register');
+// Route::get('estado', [CountriesController::class, 'filterestado']);
+
+
+
+Route::post('register', 'App\Http\Controllers\UserController@register');
 Route::post('login', 'App\Http\Controllers\UserController@authenticate');
 
 Route::get('mail', [EmailController::class, 'mail']);
@@ -39,7 +42,7 @@ Route::post('send', [EmailController::class, 'create']);
 
 
 Route::get('users', [UserController::class, 'index']);
-Route::post('register', [UserController::class, 'store']);
+Route::post('registercomplet', [UserController::class, 'store']);
 Route::get('users_show/{id}', [UserController::class, 'show']);
 Route::put('usersup/{id}', [UserController::class, 'update']);
 Route::delete('delete_user/{id}', [UserController::class, 'destroy']);

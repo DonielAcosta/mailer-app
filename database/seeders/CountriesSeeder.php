@@ -17,11 +17,11 @@ class CountriesSeeder extends Seeder
         foreach(config('countries') as $data) {
             $country = new Countries();
             $country->name = $data['fields']['name'];
-            switch($country['model']) {
-                case 'city':
+            switch($data['model']) {
+                case 'state':
                     $country->countries_id = $data['fields']['country'];
                     break;
-                case 'state':
+                case 'city':
                     $country->countries_id = $data['fields']['state'];
                     break;
             }
