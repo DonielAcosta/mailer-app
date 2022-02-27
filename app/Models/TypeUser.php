@@ -10,7 +10,8 @@ class TypeUser extends Model
 {
     use HasFactory;
 
-
+    protected $table="type_users";
+    protected $primaryKey = 'id';
     protected $fillable = ['type'];
 
    /**

@@ -27,7 +27,7 @@ class UserDataSeeder extends Seeder
         $type->save();
         
         $type = new UserData();
-        $type->users_id = 1;
+        $type->users_id = 2;
         $type->name = $faker->name();
         $type->identification = $faker->randomNumber(8, true);
         $type->date_of_birth = $faker->date($format = 'Y-m-d', $max = 'now');
@@ -36,12 +36,14 @@ class UserDataSeeder extends Seeder
         $type->save();
 
         $type = new UserData();
-        $type->users_id = 1;
+        $type->users_id = 3;
         $type->name = $faker->name();
         $type->identification = $faker->randomNumber(8, true);
         $type->date_of_birth = $faker->date($format = 'Y-m-d', $max = 'now');
         $type->phone = $faker->e164PhoneNumber(15);
         $type->code_city = 'Carabobo';
         $type->save();
+
+        
     }
 }

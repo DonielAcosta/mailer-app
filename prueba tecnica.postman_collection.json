@@ -67,7 +67,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \n    \"email\" : \"randommail@mail.com\",\n    \"password\" : \"strongkey123\"\n}",
+							"raw": "{\n    \"email\" : \"julian@gmail.com\",\n    \"password\" : \"12345678\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -96,7 +96,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\" : \"randomusername\",\n    \"email\" : \"randommail111@mail.com\",\n    \"password\" : \"strongkey123\",\n    \"password_confirmation\" : \"strongkey123\",\n    \"identification\": \"V25237858\",\n    \"type_users_id\":\"1\",\n    \"date_of_birth\": \"1995-11-18\",\n    \"phone\": \"+584120749550\",\n     \"code_city\": \"5101\"\n    \n}\n",
+							"raw": "\n{\n    \"name\" : \"doni\",\n    \"password\" : \"1234\",\n    \"password_confirmation\" : \"1234\",\n    \"email\" : \"doni123@mail.com\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -183,7 +183,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/delete_user/1",
+							"raw": "http://localhost:8000/api/delete_user/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -192,7 +192,7 @@
 							"path": [
 								"api",
 								"delete_user",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -209,7 +209,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/user_data",
+							"raw": "http://127.0.0.1:8000/api/user_data?search=5",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -221,6 +221,22 @@
 							"path": [
 								"api",
 								"user_data"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "romeoaaaa",
+									"disabled": true
+								},
+								{
+									"key": "paginate",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "5"
+								}
 							]
 						}
 					},
@@ -233,7 +249,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"users_id\": 2,\n    \"name\": \"julian\",\n    \"identification\": \"24345867\",\n    \"phone\": \"04123458778\",\n    \"date_of_birth\": \"2000-05-01\",\n    \"code_city\": \"2323\"\n}\n\n",
+							"raw": "{\n    \"users_id\": 1,\n    \"name\": \"dubexy\",\n    \"identification\": \"28038421\",\n    \"phone\": \"04123458778\",\n    \"date_of_birth\": \"2000-05-01\",\n    \"code_city\": \"falcon\"\n}\n\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -261,9 +277,16 @@
 				},
 				{
 					"name": "http://127.0.0.1:8000/api/user_data/1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://127.0.0.1:8000/api/user_data/1",
 							"protocol": "http",
@@ -291,7 +314,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"users_id\": 1,\n    \"name\": \"julian\",\n    \"identification\": \"24345867\",\n    \"phone\": \"04123458778\",\n    \"date_of_birth\": \"2000-05-01\",\n    \"code_city\": \"2323\"\n}\n\n",
+							"raw": "{\n    \"users_id\": ,\n    \"name\": \"julian\",\n    \"identification\": \"24345867\",\n    \"phone\": \"04123458778\",\n    \"date_of_birth\": \"2000-05-01\",\n    \"code_city\": \"2323\"\n}\n\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -315,6 +338,30 @@
 							]
 						},
 						"description": "update\n"
+					},
+					"response": []
+				},
+				{
+					"name": "http://127.0.0.1:8000/api/user_data/1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/user_data/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user_data",
+								"2"
+							]
+						}
 					},
 					"response": []
 				}
@@ -439,27 +486,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "http://localhost:8000/api/type-user/1",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8000/api/type-user/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"api",
-								"type-user",
-								"1"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -528,62 +554,12 @@
 			"name": "country",
 			"item": [
 				{
-					"name": "http://127.0.0.1:8000/api/pais",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:8000/api/pais",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"api",
-								"pais"
-							],
-							"query": [
-								{
-									"key": "search",
-									"value": "1",
-									"disabled": true
-								},
-								{
-									"key": "paginate",
-									"value": "1",
-									"disabled": true
-								},
-								{
-									"key": "search",
-									"value": "45",
-									"disabled": true
-								},
-								{
-									"key": "parent",
-									"value": "1",
-									"disabled": true
-								},
-								{
-									"key": "country",
-									"value": "1",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "http://127.0.0.1:8000/api/countries",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/countries?parent=1029",
+							"raw": "http://127.0.0.1:8000/api/countries",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -599,7 +575,8 @@
 							"query": [
 								{
 									"key": "parent",
-									"value": "1029"
+									"value": "1029",
+									"disabled": true
 								},
 								{
 									"key": "search",

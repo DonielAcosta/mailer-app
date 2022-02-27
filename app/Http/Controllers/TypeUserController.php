@@ -143,7 +143,7 @@ class TypeUserController extends Controller
      */
     public function destroy($id)
     {
-        $type_user = TypeUser::findorFail($id);
+        $type_user = TypeUser::find($id);
         $type_user->delete();
         return response()->json([
             'deleted' => True,

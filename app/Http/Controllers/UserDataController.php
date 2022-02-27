@@ -41,11 +41,11 @@ class UserDataController extends Controller
         $user_data = UserData::with(['User'])
         	->when($search, function ($query, $search) {
                 return $query->where(function ($q) use ($search) {
-                       $q->where("name", 'ILIKE', "%" . $search . "%")
-                       	->orWhere("identification", "ILIKE", "%" . $search . "%")
-                       	->orWhere("phone", "ILIKE", "%" . $search . "%")
-                       	->orWhere("date_of_birth", "ILIKE", "%" . $search . "%")
-                       	->orWhere("code_city", "ILIKE", "%" . $search . "%");
+                       $q->where("name", 'LIKE', "%" . $search . "%")
+                       	->orWhere("identification", "LIKE", "%" . $search . "%")
+                       	->orWhere("phone", "LIKE", "%" . $search . "%")
+                       	->orWhere("date_of_birth", "LIKE", "%" . $search . "%")
+                       	->orWhere("code_city", "LIKE", "%" . $search . "%");
                 });
             })
             ->orderBy($by, $dir)
@@ -187,7 +187,7 @@ class UserDataController extends Controller
      */
     public function destroy($id)
     {
-        $user_data = UserData::findorFail($id);
+        $user_data = UserData::find($id);
         $user_data->delete();
         return response()->json([
             'deleted' => True,

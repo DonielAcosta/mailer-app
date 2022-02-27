@@ -16,7 +16,8 @@ class UserData extends Model
      *
      * @var array
      */
-
+    protected $table="user_data";
+    protected $primaryKey = 'id';
     protected $fillable = [
         'users_id',
         'name',

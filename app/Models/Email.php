@@ -17,7 +17,7 @@ class Email extends Model
      *
      * @var array<int, string>
      */
-    protected $table="Emails";
+    protected $table="emails";
     protected $primaryKey = 'id';
     protected $fillable = [
         'users_id',

@@ -48,8 +48,10 @@ Route::put('usersup/{id}', [UserController::class, 'update']);
 Route::delete('delete_user/{id}', [UserController::class, 'destroy']);
 
 Route::resource('user_data', UserDataController::class);
-// Route::post('signUp', [RegisterController::class, 'signUp']);
+Route::delete('user_data/{id}', [UserDataController::class, 'destroy']);
 Route::resource('type-user', TypeUserController::class);
+Route::delete('delete_type-user/{id}', [TypeUserController::class, 'destroy']);
+
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
