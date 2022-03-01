@@ -12,69 +12,56 @@ use App\Mail\EmailForQueuing;
 use App\Models\Email;
 use App\Models\User;
 use Mail;
+use Swift_SmtpTransport;
 use Swift_Message;
-
+use Swift_Mailer;
 
 class SendEmail implements ShouldQueue{
 
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+  use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $mailData;
-    public $subject;
-    public $body;
+  public $mailData;
+  public $subject;
+  public $body;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct(Email $mailData)
-    {
-        $this->mailData = $mailData;
-        
+  /**
+   * Create a new message instance.
+   *
+   * @return void
+   */
+  public function __construct(Email $mailData)
+  {
+      $this->mailData = $mailData;
+      
+  }
 
-
-        
-    }
-   /**
-           * Método de cola como enviar correo electrónico
-     *
-     * @return void
-     */
-    public function handle(){
-        // Log::info('Entered Job Email handle method');
-
-        // $email =  Email::where(["id" => $this->Email["id"]]);
-        
-        // $email = Email::find('id'); 
-        // $email->Email;
-        // $email->save();
-
-        // Log::info('Exited from Job  handle method');
-
-        // Mail::send($this->mailData->email, function($msj) use($subject){
-        //     $msj->from("anacontreras1911@gmail.com","Ana");
-        //     $msj->subject($this->subject);
-        //      $msj->to();
-        // });
+  /**
+    * Método de cola como enviar correo electrónico
+   *
+   * @return void
+   */
+  public function handle(){
 
 
-        $message = (new Swift_Message('Laravel'))
-                ->setFrom($this->mailData->email)
-                ->setTo(['donielacosta1995@gmail.com' => 'Doniel'])
-                ->setBody($this->mailData->body);
-                // echo "Basic Email Sent. Check your inbox.";
-
-        
-        $this->mailData->status = 'Enviado';
-        $this->mailData->save();
-        Log::alert('Soy de la cola y envié un correo electrónico',['email' => $this->mailData->email]);
-//  dd($message);
-        // Mail::to($this->mailData->email)
-        //             ->subject($this->subject)
-        //             ->body($this->body)
-        //             ->send();
+    $transport = (new Swift_SmtpTransport(
+                env('MAIL_HOST', 'smtp.mailgun.org'),
+                env('MAIL_PORT', 465), 
+                env('MAIL_ENCRYPTION', 'ssl'))
+              )->setUsername(env('MAIL_USERNAME'))
+               ->setPassword( env('MAIL_PASSWORD'));
 
 
-    }
+    $mailer = new Swift_Mailer($transport);
+
+    $message = (new Swift_Message($this->mailData->subject))
+            ->setTo($this->mailData->email)
+            ->setFrom(['donielacosta1995@gmail.com' => 'Doniel'])
+            ->setBody($this->mailData->body);
+
+    $result = $mailer->send($message);   
+
+    $this->mailData->status = 'Enviado';
+    $this->mailData->save();
+      
+  }
 }

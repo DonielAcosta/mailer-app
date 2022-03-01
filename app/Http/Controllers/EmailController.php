@@ -40,48 +40,41 @@ class EmailController extends Controller{
             ],
             200
         );
-     }
+    }
 
 
     public function enviar(Request $request){
 
-    // $email = 'donielacosta1995@gmail.com';
 
-    $validator = Validator::make($request->all(), [
-        
-        'email' => 'required|string|email|max:255',
-        'subject' => 'string',
-        'body' => 'string',
-        'status' => 'string',
-    ]);
+      $validator = Validator::make($request->all(), [
+          
+          'email' => 'required|string',
+          'subject' => 'string',
+          'body' => 'string',
+          'status' => 'string',
+      ]);
 
-    if ($validator->fails()) {
-        return response()->json($validator->errors()->toJson(), 400);
-    }
-
-     $emails = Email::create([
-        'users_id' => 1,
-        'email' => $request->get('email'),
-        'subject' => $request->get('subject'),
-        'body' => $request->get('body'),
-        'status' => 'No enviado'
-  
-       ]);
-       $emails->save();
-
-
-    //    ProcessPodcast::dispatchSync($podcast);
+      if ($validator->fails()) {
+          return response()->json($validator->errors()->toJson(), 400);
+      }
+      foreach(explode(',',$request->get('email')) as $mail) {
+        $emails = Email::create([
+          'users_id' => $request->get('users_id'),
+          'email' => $mail,
+          'subject' => $request->get('subject'),
+          'body' => $request->get('body'),
+          'status' => 'No enviado'
+        ]);
+        $emails->save();
         SendEmail::dispatch($emails);
-       
-       
-    //    dd($a);
-        return response()->json(
-            [
-                'listed' => True,
-                'message' => 'Email sent Successfully'
-            ],
-            200
-        );
+      }
+      return response()->json(
+          [
+              'listed' => True,
+              'message' => 'Email sent Successfully'
+          ],
+          200
+      );
 
     }
 
