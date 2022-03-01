@@ -63,25 +63,30 @@ class UserController extends Controller
         );
     }
 
-    public function authenticate(Request $request)
+    public function auth(Request $request)
 {
     $credentials = $request->only('email', 'password');
     try {
-        if (! $token = JWTAuth::attempt($credentials)) {
-            return response()->json(['error' => 'invalid_credentials'], 400);
+        if (!$token = JWTAuth::attempt($credentials)) {
+            return response()->json(['message' => 'credenciales invalidas'], 400);
+        } else {
+            $user = User::with(['UserData','TypeUser'])
+            ->where('email', $credentials['email'])->get();
+            return response()->json(['user' => $user[0], 'token' => compact('token')]);
         }
     } catch (JWTException $e) {
-        return response()->json(['error' => 'could_not_create_token'], 500);
+        return response()->json(['message' => 'no se pudo acceder, error de servidor'], 500);
     }
-    return response()->json(compact('token'));
     }
 
-    public function getAuthenticatedUser()
+
+
+    public function getAuthUser()
     {
-    try {
-        if (!$user = JWTAuth::parseToken()->authenticate()) {
+        try {
+            if (!$user = JWTAuth::parseToken()->authenticate()) {
                 return response()->json(['user_not_found'], 404);
-        }
+            }
         } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
                 return response()->json(['token_expired'], $e->getStatusCode());
         } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {

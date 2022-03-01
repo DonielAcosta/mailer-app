@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Mail;
 use Swift_SmtpTransport;
 use Swift_Message;
 use Swift_Mailer;
@@ -12,11 +13,77 @@ use App\Jobs\SendEmail;
 use Validator;
 use App\Models\Email;
 use App\Models\User;
-
-
-// use App\Http\Controllers\Mail\WelcomeEmail;
+use App\Mail\EmailPrueba;
+use DispatchesJobs;
 
 class EmailController extends Controller{
+
+
+
+    public function enviarEmail(Request $request) {
+
+        $subject = "Asunto del correo";
+         $for = "donielacosta1995@gmail.com";
+        $sendE = Email::pluck('email');
+
+        // dd($sendE);
+        Mail::send($sendE, function($msj) use($subject,$sendE){
+            $msj->from("anacontreras1911@gmail.com","Ana");
+            $msj->subject($subject);
+            $msj->to();
+        });
+
+        return response()->json(
+            [
+                'listed' => True,
+                'message' => 'Elemento obtenido exitosamente'
+            ],
+            200
+        );
+     }
+
+
+    public function enviar(Request $request){
+
+    // $email = 'donielacosta1995@gmail.com';
+
+    $validator = Validator::make($request->all(), [
+        
+        'email' => 'required|string|email|max:255',
+        'subject' => 'string',
+        'body' => 'string',
+        'status' => 'string',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json($validator->errors()->toJson(), 400);
+    }
+
+     $emails = Email::create([
+        'users_id' => 1,
+        'email' => $request->get('email'),
+        'subject' => $request->get('subject'),
+        'body' => $request->get('body'),
+        'status' => 'No enviado'
+  
+       ]);
+       $emails->save();
+
+
+    //    ProcessPodcast::dispatchSync($podcast);
+        SendEmail::dispatch($emails);
+       
+       
+    //    dd($a);
+        return response()->json(
+            [
+                'listed' => True,
+                'message' => 'Email sent Successfully'
+            ],
+            200
+        );
+
+    }
 
     public function mail(Request $request){
 
@@ -32,7 +99,7 @@ class EmailController extends Controller{
       $message = (new Swift_Message('News Letter Subscription'))
       ->setFrom(['slina0697@gmail.com' => 'lina'])
       ->setTo(['donielacosta1995@gmail.com' => 'Doniel'])
-      ->setBody(' mensaje prueba ')
+      ->setBody(' ing cristian')
       ;
 
       // Send the message
