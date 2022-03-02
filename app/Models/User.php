@@ -4,23 +4,26 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\UserData;
 use App\Models\Email;
-use Spatie\Permission\Traits\HasRoles;
+// use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject{
 
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable,SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
+    public $table = "users";
+
     protected $fillable = [
         'email',
         'password',
@@ -46,7 +49,7 @@ class User extends Authenticatable implements JWTSubject{
         'email_verified_at' => 'datetime',
     ];
 
-
+    protected $dates=['deleted_at'];
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

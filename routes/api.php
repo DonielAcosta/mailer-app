@@ -63,10 +63,17 @@ Route::delete('delete_type-user/{id}', [TypeUserController::class, 'destroy']);
 //     Route::post('user','App\Http\Controllers\UserController@getAuthUser');
 
 // });
-Route::get('profile', function () {
-    // Only verified users may enter...
-})->middleware('verified');
+// Route::get('profile', function () {
+//     // Only verified users may enter...
+// })->middleware('verified');
 
+Route::post('user','App\Http\Controllers\UserController@getAuthUser');
+
+Route::get('users', [UserController::class, 'index']);
+Route::post('registercomplet', [UserController::class, 'store']);
+Route::get('users_show/{id}', [UserController::class, 'show']);
+Route::put('usersup/{id}', [UserController::class, 'update']);
+Route::delete('delete/{id}', [UserController::class, 'destroy']);
 
 Route::group(['middleware' => ['api', 'auth.jwt']], function () {
 
@@ -78,13 +85,6 @@ Route::group(['middleware' => ['api', 'auth.jwt']], function () {
      *
      */
 
-    Route::post('user','App\Http\Controllers\UserController@getAuthUser');
-
-    Route::get('users', [UserController::class, 'index']);
-    Route::post('registercomplet', [UserController::class, 'store']);
-    Route::get('users_show/{id}', [UserController::class, 'show']);
-    Route::put('usersup/{id}', [UserController::class, 'update']);
-    Route::delete('delete_user/{id}', [UserController::class, 'destroy']);
 
     
     

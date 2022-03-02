@@ -187,11 +187,11 @@ class UserDataController extends Controller
      */
     public function destroy($id)
     {
-        $user_data = UserData::find($id);
-        $user_data->delete();
-        return response()->json([
-            'deleted' => True,
-            'message' => 'Elemento eliminado exitosamente',
-        ], 200);
+      $user_data = UserData::find($id);
+      $user_data->delete();
+      return response()->json([
+          'deleted' => True,
+          'message' => 'Elemento eliminado exitosamente',
+      ], 200);
     }
 }
