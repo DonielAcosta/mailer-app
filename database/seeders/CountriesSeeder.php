@@ -22,7 +22,7 @@ class CountriesSeeder extends Seeder
               $country->countries_id = $data['fields']['country'];
               break;
           case 'city':
-              $country->countries_id = $data['fields']['state'];
+              $country->countries_id = $data['fields']['state'] + 253;
               break;
       }
       $country->save();
