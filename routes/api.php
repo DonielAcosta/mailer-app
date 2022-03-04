@@ -28,15 +28,8 @@ use App\Http\Controllers\RegisterController;
 
 Auth::routes(['verify' => true]);
 
-Route::get('hola',[CountriesController::class,'hola']);
-
 Route::get('countries', [CountriesController::class, 'index']);
 Route::get('countries/{id}', [CountriesController::class, 'filter']);
-
-
-// Route::get('estado', [CountriesController::class, 'filterestado']);
-
-
 
 Route::post('register', 'App\Http\Controllers\UserController@register');
 Route::post('login', 'App\Http\Controllers\UserController@authenticate');
@@ -45,19 +38,12 @@ Route::get('mail', [EmailController::class, 'mail']);
 Route::post('send', [EmailController::class, 'create']);
 
 Route::post('envio', [EmailController::class, 'enviar']);
-Route::post('/enviar-email', [EmailController::class, 'enviarEmail']);
-
-
-
+Route::post('enviar-email', [EmailController::class, 'enviarEmail']);
 
 Route::resource('user_data', UserDataController::class);
 Route::delete('user_data/{id}', [UserDataController::class, 'destroy']);
 Route::resource('type-user', TypeUserController::class);
 Route::delete('delete_type-user/{id}', [TypeUserController::class, 'destroy']);
-
-
-
-
 // Route::group(['middleware' => ['jwt.verify']], function() {
 
 //     Route::post('user','App\Http\Controllers\UserController@getAuthUser');
@@ -86,6 +72,6 @@ Route::group(['middleware' => ['api', 'auth.jwt']], function () {
      */
 
 
-    
-    
+
+
 });

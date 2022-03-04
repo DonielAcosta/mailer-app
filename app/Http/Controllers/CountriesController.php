@@ -13,14 +13,9 @@ use App\User;
 
 
 class CountriesController extends Controller{
-    
+
   public function index(){
 
-    $paginate = request()->get('paginate');
-    if ($paginate == null) {
-      $paginate = 10;
-    }
-    
     $parent = request()->get('parent');
     $country = request()->get('parent');
     $search = request()->get('search');
@@ -45,13 +40,13 @@ class CountriesController extends Controller{
       })
       ->when($search, function ($query, $search) {
           return $query->where("name",'LIKE',"%".$search."%");
-      }) 
+      })
       ->orderBy($by, $dir)
-      ->paginate($paginate);
+      ->get();
 
     return response()->json(
       [
-          'listed' => True, 
+          'listed' => True,
           'data' => $pais,
           'message' => 'Elemento obtenido exitosamente'
         ],
@@ -62,17 +57,17 @@ class CountriesController extends Controller{
   public function filter($id){
 
     $filter = Countries::with('country.country')
-            ->where('id', $id)   
+            ->where('id', $id)
             ->get();
 
     return response()->json(
         [
-            'listed' => True, 
+            'listed' => True,
             'data' => $filter,
             'message' => 'Elemento obtenido exitosamente'
         ],
       200);
   }
 
-  
+
 }
