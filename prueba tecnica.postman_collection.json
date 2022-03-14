@@ -590,11 +590,23 @@
 				},
 				{
 					"name": "http://127.0.0.1:8000/api/filter-parent",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/countries/7029",
+							"raw": "http://127.0.0.1:8000/api/countries/?parent=244",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -606,7 +618,18 @@
 							"path": [
 								"api",
 								"countries",
-								"7029"
+								""
+							],
+							"query": [
+								{
+									"key": "parent",
+									"value": "3980",
+									"disabled": true
+								},
+								{
+									"key": "parent",
+									"value": "244"
+								}
 							]
 						}
 					},
